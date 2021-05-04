@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: NAME5
+  labels:
+    app: NAME6
+    username: ckk3478
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: NAME6
+        username: ckk3478
+	  env: test
+  template:
+    metadata:
+      labels:
+        app: NAME6
+          username: ckk3478
+          env: test
+    spec:
+      containers:
+        - name: NAME7
+          imagePullPolicy: Always
+          image: redis: 5.0.0
+          volumeMounts:
+          - name: NAME8
+            mountPath: "/data"
+          ports:
+          - name: http
+          containerPort: 6379
+      volumes:
+      - name: NAME8
+        persistentVolumeClaim:
+          claimName: NAME8

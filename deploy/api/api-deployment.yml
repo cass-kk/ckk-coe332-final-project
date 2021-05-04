@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: NAME1
+  labels:
+    app: NAME2
+    username: ckk3478
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: NAME2
+        username: ckk3478
+	  env: test
+  template:
+    metadata:
+      labels:
+        app: NAME2
+        username: ckk3478
+        env: test
+    spec:
+      containers:
+        - name: NAME3
+          imagePullPolicy: Always
+          image: casskk/FLASK_API_IMAGE_NAME
+          command: ['python', 'api.py']
+          env:
+          - name: API_GREETING
+            value: "Hello from api.py"
+          ports:
+          - name: http
+            containerPort: 5000    
