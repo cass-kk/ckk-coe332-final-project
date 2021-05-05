@@ -18,8 +18,8 @@ spec:
     metadata:
       labels:
         app: NAME6
-          username: ckk3478
-          env: test
+        username: ckk3478
+        env: test
     spec:
       containers:
         - name: NAME7

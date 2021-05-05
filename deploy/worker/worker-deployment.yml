@@ -12,8 +12,8 @@ spec:
   selector:
     matchLabels:
       app: NAME12
-        username: ckk3478
-	  env: test
+      username: ckk3478
+      env: test
   template:
     metadata:
       labels:
