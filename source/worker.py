@@ -1,4 +1,4 @@
-from jobs import q, update_job_status, _save_job
+from job import q, update_job_status, _save_job
 import time
 import os
 from hotqueue import HotQueue
