@@ -1,10 +1,16 @@
 import json
 import random
 import uuid, datetime
-from flask import Flask, request
-import jobs
+from flask import Flask, request, send_file
+import job
+import os
+
+ip_redis = os.environ.get('REDIS_IP')
+
 
 app = Flask(__name__)
+rd = redis.StrictRedis(host=ip_redis, port=6379, db=0)
+q = HotQueue('queue', host=ip_redis, port=6379, db=1)
 
 def get_data():
     with open("/app/pet_data.json", "r") as json_file:
@@ -46,7 +52,7 @@ def color():
 def find():
     typ = request.args.get('pet_type')
     age = request.args.get('pet_age')
-    look = [x for x in jsonList if (x[13] == typ and x[17] == age]
+    look = [x for x in jsonList if (x[13] == typ and x[17] == age)]
     return json.dumps(look)
 
 @app.route('/pets/date', methods=['GET']) #find pet based off of date
@@ -57,13 +63,33 @@ def date():
     dates = [x for x in test if s == sdate]
     return json.dumps(dates)
 
+@app.route('/download/<jobuuid>', methods=['GET'])
+def download(jobuuid):
+    path = f'/app/{jobuuid}.png'
+    with open(path, 'wb') as f:
+        f.write(rd.hget(jobuuid, 'image'))
+    return send_file(path, mimetype='image/png', as_attachment=True)
+
 @app.route('/jobs', methods = ['POST'])
 def jobs_api():
+    new_uuid = str(uuid.uuid4())
+    new_uuid= str(request.form['seq'])
+    u_data = { 'datetime': str(datetime.now()),
+             'status': 'submitted',
+             'input': this_sequence }
+    rd.hmset(new_uuid, u_data)
+
     try:
-    job = request.get_json(force=True)
+        job = request.get_json(force=True)
     except Exception as e:
-    return True, json.dumps({'status': "Error", 'message': "Invalid JSON: {}. ".format(e)})
+        return True, json.dumps({'status': "Error", 'message': "Invalid JSON: {}. ".format(e)})
     return json.dumps(jobs.add_job(job['start'], job['end']))
-    
+
+@app.route('/delete/<jobid>', methods=['DELETE'])
+def delete_job(jobid):
+    jobid = str(request.form['jobid'])
+    rd.delete(jobid)
+    return f'Job {jobid} deleted\n'
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
