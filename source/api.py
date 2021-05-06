@@ -4,6 +4,7 @@ import uuid, datetime
 from flask import Flask, request, send_file
 import job
 import os
+from hotqueue import HotQueue
 
 ip_redis = os.environ.get('REDIS_IP')
 
@@ -25,15 +26,10 @@ jsonList = test['data']
 def get_all():
     return json.dumps(jsonList)
 
-@app.route('/pets/dogs', methods=['GET']) #prints all of the dogs
-def dogs():
-    pet_dog = [x for x in jsonList if x[13] == dog]
-    return json.dumps(pet_dog)
-
-@app.route('/pets/cats', methods=['GET']) #prints all of the cats
-def dogs():
-    pet_cat = [x for x in jsonList if x[13] == cat]
-    return json.dumps(pet_cat)
+@app.route('/pets/<type_p>', methods=['GET']) #prints all of the type of pet, i.e. either 'cat' or 'dog'
+def pet_type(type_p):
+    t_pet = [x for x in jsonList if x[13] == type_p]
+    return json.dumps(t_pet)
 
 @app.route('/pets/breed', methods=['GET']) #prints all of the types of breeds
 def breed():

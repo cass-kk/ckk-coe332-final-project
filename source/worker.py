@@ -1,6 +1,8 @@
 from jobs import q, update_job_status, _save_job
 import time
 import os
+from hotqueue import HotQueue
+import redis
 import matplotlib.pyplot as plt
 
 ip_redis = os.environ.get('REDIS_IP')
@@ -21,30 +23,13 @@ def execute_job(jid):
 
     data_list = rd.hgetall(job)
 
-    with open("/app/pet_data.json", "r") as json_file:
-        data_json = json.load(json_file)
-    return data_json
+    results = []
 
-    test = get_data()
-    jsonList = test['data']
+    for key in data_list(): #client to the raw data stored in redis
+        if ((int(start) <= key[12] <= int(end)) and (key[13] == dog)):
+            results.append(key[14])
 
-    doggos = [x for x in JsonList if (x[13] == dog)]
-    d = dict(doggos)
-    bre = d[14]
-
-#    x_values_to_plot = []
-#    y_values_to_plot = []
-
-#    for key in raw_data.keys(): #client to the raw data stored in redis
-#        if (int(start) <= key['date'] <= int(end)):
-#            x_values_to_plot.append(key['interesting_property_1'])
-#            y_values_to_plot.append(key['interesting_property_2'])
-
- #   plt.scatter(x_values_to_plot, y_values_to_plot)
- #   plt.savefig('/output_image.png')
-
-
-    plt.hist(bre, 10)
+    plt.hist(results, 10)
     plt.show()
     plt.xlabel('Breed Types')
     plt.ylabel('Number of Dogs')
