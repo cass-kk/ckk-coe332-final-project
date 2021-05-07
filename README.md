@@ -16,10 +16,11 @@ Current tree:
 
 ```bash
 .
+├── Makefile
 ├── README.md
 ├── config
 │   ├── dump.rdb
-|   └── redis.conf
+│   └── redis.conf
 ├── deploy
 │   ├── api
 │   │   ├── api-deployment.yml
@@ -27,7 +28,7 @@ Current tree:
 │   ├── db
 │   │   ├── db-deployment.yml
 │   │   ├── db-pvc.yml
-│   |   └── db-service.yml
+│   │   └── db-service.yml
 │   └── worker
 │       └── worker-deployment.yml
 ├── docker
@@ -36,6 +37,7 @@ Current tree:
 │   ├── Dockerfile.wrk
 │   ├── docker-compose.yml
 │   └── requirements.txt
+├── instructions.md
 └── source
     ├── api.py
     ├── job.py

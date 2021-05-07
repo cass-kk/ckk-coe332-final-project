@@ -13,8 +13,25 @@ AND IMAGE TAGGING ?????????????????????????????????????????????
 
 The flask api is mapped to port 5000 on ISP from 5015.
 
+The following routes are included in the flask api:
 
+```bash
+/pets			# get all the pets in the data set
+/pets/<type_p>		# takes a user requested type of pet, specified by <type_p>, and gets all pets of that type (i.e. either cat or dog)
+/pets/breed		# get a list of all of the breeds (only breeds)
+/pets/color		# takes a user requested color and gets all of the pets with that color
+/pets/find		# takes a user requested pet type (i.e. cat or dog) and a user requested age to get pets that match the type and age
+/pets/date		# takes a user requested date and gets all pets taken in on that date
+/download/<jobuuid>	# takes a user requested job UUID and downloads the image associated with the job UUID
+/jobs			# submits a job with a generated job UUID
+/delete/<jobid>		# takes a user requested job UUID and deletes it
+```
 
+And can be accessed by:
+
+```bash
+[]$ curl localhost:5000/<add_in_the_rest_of_route>
+```
 
 ### Redis Database
 
@@ -24,10 +41,11 @@ To remove and clean the database, the redis container must be stopped before the
 
 ### Worker
 
-
-
-
-
+The worker receives messages about new jobs and performs the analysis steps in the execute_job function.  This worker will receive user input of a date range and do the following:
+1.) Check each data subset to see if it's date at key[12] falls in the date range given.
+2.) It also checks that the animal for that subset is a dog (i.e. at key[13]).
+3.) If so, it will then take that subset and append the breed (i.e. at key[14]) to an array/dictionary called results.
+4.) The worker will then plot the results in a historgram graph.  The x-axis being the Breed Types and the y-axis being the Number of Dogs in order to sort the data between the date range to see how many dogs are of a certain breed.
 
 ### Docker/Docker-Compose
 
