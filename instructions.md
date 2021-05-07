@@ -4,10 +4,19 @@
 
 A Makefile is included to easily launch the app or for quick commands to generate portions of the app individually. The following will list command lines that can be used with and without a Makefile shortcut.
 
-At the tpo ????????????????????????????????????????????????????
-AND IMAGE TAGGING ?????????????????????????????????????????????
+At the top of the Makefile, certain variables are declared for their later use within the Makefile commands.  Before using the Makefile and any of its commands, change the values of certain variables.  For example, change the namespace, redis port (RPORT), flask port (FPORT), user ID, and group ID values.
 
+Github and Docker are connected for this app so that everytime a change is made to the app, all of the Docker containers (api, rd/db, and worker) will all be tagged with the same release.  Edit the version (VER) at the top of the Makefile and then please do the following to tag a release:
 
+```bash
+[]$ git add <files_with_new_code> 
+[]$ git commit -m "<update_message>"
+[]$ git branch -M main
+[]$ git push -u origin main
+login
+[]$ git tag a <tag> -m '<description>'
+git push origin <tag>
+```
 
 ### Interacting with the API
 
@@ -32,6 +41,13 @@ And can be accessed by:
 ```bash
 []$ curl localhost:5000/<add_in_the_rest_of_route>
 ```
+
+The /jobs submits jobs with the POST method as follows:
+
+```bash
+[]$ curl -X POST -H "key=dog" -d localhost:5000/jobs 
+```
+
 
 ### Redis Database
 
