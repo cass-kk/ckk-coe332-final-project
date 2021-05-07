@@ -58,6 +58,7 @@ To remove and clean the database, the redis container must be stopped before the
 ### Worker
 
 The worker receives messages about new jobs and performs the analysis steps in the execute_job function.  This worker will receive user input of a date range and do the following:
+
 1.) Check each data subset to see if it's date at key[12] falls in the date range given.
 2.) It also checks that the animal for that subset is a dog (i.e. at key[13]).
 3.) If so, it will then take that subset and append the breed (i.e. at key[14]) to an array/dictionary called results.
