@@ -4,21 +4,21 @@ version: "3"
 services:
     casskk-api:
         image: casskk/app-api:${VER}
-	container_name: casskk-api
-	environent:
+        container_name: casskk-api
+        environent:
             - REDIS_IP= casskk-rd
-	ports:
-	    - 5015:5000
+        ports:
+            - 5015:5000
     casskk-rd:
         image: casskk/app-rd:${VER}
         container_name: casskk-rd
         ports:
             - 6395:6379
-	user: "   :   "
+        user: "869425:816966"
         volumes:
             - ../config/:/config/
      casskk-worker:
         image: casskk/app-worker:${VER}
-	container_name: casskk-worker
-	environment:
-	    - REDIS_IP=casskk-db
+        container_name: casskk-worker
+        environment:
+            - REDIS_IP=casskk-db
