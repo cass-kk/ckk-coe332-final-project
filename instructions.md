@@ -59,10 +59,10 @@ To remove and clean the database, the redis container must be stopped before the
 
 The worker receives messages about new jobs and performs the analysis steps in the execute_job function.  This worker will receive user input of a date range and do the following:
 
-1.) Check each data subset to see if it's date at key[12] falls in the date range given.
-2.) It also checks that the animal for that subset is a dog (i.e. at key[13]).
-3.) If so, it will then take that subset and append the breed (i.e. at key[14]) to an array/dictionary called results.
-4.) The worker will then plot the results in a historgram graph.  The x-axis being the Breed Types and the y-axis being the Number of Dogs in order to sort the data between the date range to see how many dogs are of a certain breed.
+1. Check each data subset to see if it's date at key[12] falls in the date range given.
+2. It also checks that the animal for that subset is a dog (i.e. at key[13]).
+3. If so, it will then take that subset and append the breed (i.e. at key[14]) to an array/dictionary called results.
+4. The worker will then plot the results in a historgram graph.  The x-axis being the Breed Types and the y-axis being the Number of Dogs in order to sort the data between the date range to see how many dogs are of a certain breed.
 
 ### Docker/Docker-Compose
 
