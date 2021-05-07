@@ -8,12 +8,10 @@ RUN pip install hotqueue
 
 RUN pip install redis
 
-RUN mkdir -p /app
+RUN pip install matplotlib=3.3.4
 
-COPY worker.py /app
+COPY ./source/worker.py /app/
 
 WORKDIR /app
 
-ENTRYPOINT ["python"]
-
-CMD ["worker.py"]
+CMD ["python", "/app/worker.py"]

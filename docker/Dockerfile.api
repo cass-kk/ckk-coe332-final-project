@@ -10,10 +10,8 @@ RUN pip install redis
 
 RUN mkdir -p /app
 
-COPY api.py /app
+COPY ./source/api.py /app/
 
 WORKDIR /app
 
-ENTRYPOINT ["python"]
-
-CMD ["api.py"]
+CMD ["python", "/app/api.py"]

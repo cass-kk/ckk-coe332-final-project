@@ -2,30 +2,23 @@
 version: "3"
 
 services:
-    api:
-        image: casskk/IMAGE_API_NAME
-        volumes:
-            - ./test:/data
-        user: "827385:815499"
-        command: api.py /data/pet_data.json
-    redis:
-        image: redis:latest
-        container_name: casskk-redis
+    casskk-api:
+        image: casskk/app-api:${VER}
+	container_name: casskk-api
+	environent:
+            - REDIS_IP= casskk-rd
+	ports:
+	    - 5015:5000
+    casskk-rd:
+        image: casskk/app-rd:${VER}
+        container_name: casskk-rd
         ports:
             - 6395:6379
+	user: "   :   "
         volumes:
-            - ./config/redis.conf:/redis.conf
-        command: ["redis-server", "/redis.conf"]
-     work:
-        image: casskk/IMAGE_WORK_NAME
-        volumes:
-            - ./test:/data
-        user: "827385:815499"
-        command: worker.py /data/pet_data.json
-     web:
-        build: .
-        container_name: casskk-web
-        ports:
-           - 5015:5000
-        volumes:
-           - ./data/pet_data.json:/datafile.json
+            - ../config/:/config/
+     casskk-worker:
+        image: casskk/app-worker:${VER}
+	container_name: casskk-worker
+	environment:
+	    - REDIS_IP=casskk-db
