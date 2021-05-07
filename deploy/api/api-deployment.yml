@@ -2,33 +2,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: NAME1
+  name: app-api-deployment
   labels:
-    app: NAME2
+    app: api-app
     username: ckk3478
     env: test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: NAME2
+      app: api-app
       username: ckk3478
       env: test
   template:
     metadata:
       labels:
-        app: NAME2
+        app: api-app
         username: ckk3478
         env: test
     spec:
       containers:
-        - name: NAME3
+        - name: api-app
           imagePullPolicy: Always
-          image: casskk/FLASK_API_IMAGE_NAME
+          image: casskk/app-api:${TAG}
           command: ['python', 'api.py']
           env:
-          - name: API_GREETING
-            value: "Hello from api.py"
+          - name: REDIS_IP
+            value: 10.98.221.351
           ports:
           - name: http
             containerPort: 5000    

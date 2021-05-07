@@ -2,33 +2,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: NAME11
+  name: app-worker-development
   labels:
-    app: NAME12
+    app: worker-app
     username: ckk3478
     env: test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: NAME12
+      app: worker-app
       username: ckk3478
       env: test
   template:
     metadata:
       labels:
-        app: NAME12
+        app: worker-app
         username: ckk3478
         env: test
     spec:
       containers:
-        - name: NAME13
+        - name: worker-app
           imagePullPolicy: Always
-          image: casskk/FLASK_API_IMAGE_NAME => maybe different??????????
+          image: casskk/app-worker:${TAG}
           command: ['python', 'worker.py']
           env:
-          - name: WORKER_GREETING
-            value: "Hello from worker.py"
+          - name: REDIS_IP
+            value: 10.98.221.351
           - name: WORKER_IP
             valueFrom:
               fieldRef:

@@ -2,36 +2,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: NAME5
+  name: app-db-deployment
   labels:
-    app: NAME6
+    app: db-app
     username: ckk3478
     env: test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: NAME6
-        username: ckk3478
-	  env: test
+      app: db-app
+      username: ckk3478
+      env: test
   template:
     metadata:
       labels:
-        app: NAME6
+        app: db-app
         username: ckk3478
         env: test
     spec:
       containers:
-        - name: NAME7
+        - name: db-app
           imagePullPolicy: Always
-          image: redis: 5.0.0
+          image: casskk/app-rd:${TAG}
+          command: ["redis-server"]
           volumeMounts:
-          - name: NAME8
+          - name: app-db-pvc
             mountPath: "/data"
           ports:
           - name: http
-          containerPort: 6379
+            containerPort: 6379
       volumes:
-      - name: NAME8
+      - name: app-db-pvc
         persistentVolumeClaim:
-          claimName: NAME8
+          claimName: app-db-pvc

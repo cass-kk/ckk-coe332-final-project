@@ -2,16 +2,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: NAME9
+  name: app-db-service
   labels:
-    app: NAME6
+    app: db-app
     username: ckk3478
     env: test
 spec:
   type: ClusterIP
   selector:
-    app: NAME6
+    app: db-app
   ports:
-  - name: NAME7
+  - name: db-app
     port: 6379
     targetPort: 6379

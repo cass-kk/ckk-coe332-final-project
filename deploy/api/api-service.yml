@@ -2,16 +2,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: NAME4
+  name: app-api-service
   labels:
-    app: NAME2
+    app: api-app
     username: ckk3478
     env: test
 spec:
   type: ClusterIP
   selector:
-    app: name2
+    app: api-app
   ports:
-  - name: name3
-  port: 5000
-  targetPort: 5000
+  - name: api-port
+    port: 5000
+    targetPort: 5000
