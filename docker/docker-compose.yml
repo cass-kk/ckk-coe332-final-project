@@ -5,7 +5,7 @@ services:
     casskk-api:
         image: casskk/app-api:${VER}
         container_name: casskk-api
-        environent:
+        environment:
             - REDIS_IP= casskk-rd
         ports:
             - 5015:5000
