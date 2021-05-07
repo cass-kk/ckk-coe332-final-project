@@ -16,8 +16,8 @@ build-api:
                      -f docker/Dockerfile.api \
                      ./
 
-build-wrk:
-	docker build -t ${NSPACE}/${APP}-wrk:${VER} \
+build-worker:
+	docker build -t ${NSPACE}/${APP}-worker:${VER} \
                      -f docker/Dockerfile.wrk \
                      ./
 
@@ -27,13 +27,13 @@ clean-db:
 clean-api:
 	docker ps -a | grep ${NSPACE}-api | awk '{print $$1}' | xargs docker rm -f
 
-clean-wrk:
-	docker ps -a | grep ${NSPACE}-wrk | awk '{print $$1}' | xargs docker rm -f
+clean-worker:
+	docker ps -a | grep ${NSPACE}-worker | awk '{print $$1}' | xargs docker rm -f
 
 
-build-all: build-db build-api build-wrk
+build-all: build-db build-api build-worker
 
-clean-all: clean-db clean-api clean-wrk
+clean-all: clean-db clean-api clean-worker
 
 
 compose-up:
