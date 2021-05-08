@@ -36,13 +36,12 @@ Current tree:
 │   ├── Dockerfile.api
 │   ├── Dockerfile.db
 │   ├── Dockerfile.wrk
-│   ├── docker-compose.yml
-│   └── requirements.txt
+│   └── docker-compose.yml
+├── requirements.txt
 ├── source
 │   ├── api.py
 │   ├── job.py
 │   ├── pet_data.json
 │   └── worker.py
 └── user_docs.md
-
 ```
