@@ -31,16 +31,18 @@ Current tree:
 │   │   └── db-service.yml
 │   └── worker
 │       └── worker-deployment.yml
+├── deployment_docs.md
 ├── docker
 │   ├── Dockerfile.api
 │   ├── Dockerfile.db
 │   ├── Dockerfile.wrk
 │   ├── docker-compose.yml
 │   └── requirements.txt
-├── instructions.md
-└── source
-    ├── api.py
-    ├── job.py
-    ├── pet_data.json
-    └── worker.py
+├── source
+│   ├── api.py
+│   ├── job.py
+│   ├── pet_data.json
+│   └── worker.py
+└── user_docs.md
+
 ```
